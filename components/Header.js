@@ -21,7 +21,7 @@ export default function Header() {
         src="/assets/images/dyxi_logo.png"
         alt="Dyxi"
         style={{
-          width: "80px",
+          width: "100px",
           height: "auto",
           display: "block",
         }}
