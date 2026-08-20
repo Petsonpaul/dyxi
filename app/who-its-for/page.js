@@ -93,7 +93,7 @@ export default function WhoItsFor() {
                   <h2 className="heading_text">For Children</h2>
                   <p className="heading_description mb-0">
                     Children interact with Dyxi through the mobile learning
-                    app, built for ages 3–9. Activities are friendly,
+                    app, built for ages 3–12. Activities are friendly,
                     engaging and designed to feel like play, while
                     quietly adapting to how each child learns.
                   </p>

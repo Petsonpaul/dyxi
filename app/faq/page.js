@@ -15,7 +15,7 @@ export default function FaqPage() {
                  
                   <h1 className="page_title">FAQ</h1>
                   <p className="page_description">
-                    Answers to the questions parents ask most often about Dyxi and how we support children ages 3–9 with their learning.
+                    Answers to the questions parents ask most often about Dyxi and how we support children ages 3–12 with their learning.
                   </p>
                 </div>
               </div>
@@ -72,7 +72,7 @@ export default function FaqPage() {
                     <div id="collapse_three" className="accordion-collapse collapse" data-bs-parent="#faq_accordion_1">
                       <div className="accordion-body">
                         <p className="mb-0">
-                          Dyxi is designed for children roughly ages 3 to 9. Activities and pacing adjust as your child grows.
+                          Dyxi is designed for children roughly ages 3 to 12. Activities and pacing adjust as your child grows.
                         </p>
                       </div>
                     </div>

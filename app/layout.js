@@ -6,7 +6,7 @@ import BackToTop from "@/components/BackToTop";
 export const metadata = {
   title: "Dyxi — Learning should feel easier",
   description:
-    "Dyxi helps children ages 3–9 build stronger learning skills through personalised activities, while giving parents a clearer view of their child's progress.",
+    "Dyxi helps children ages 3–12 build stronger learning skills through personalised activities, while giving parents a clearer view of their child's progress.",
 };
 
 export default function RootLayout({ children }) {

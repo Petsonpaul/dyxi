@@ -29,7 +29,7 @@ export default function Footer() {
   </Link>
 </div>
                 <p>
-                  Dyxi helps children ages 3–9 build stronger learning
+                  Dyxi helps children ages 3–12 build stronger learning
                   skills through personalised activities, while giving
                   parents a clearer view of their progress.
                 </p>

@@ -19,13 +19,7 @@ export default function About() {
           >
             <div className="row align-items-center">
               <div className="col col-lg-8">
-                <ul className="breadcrumb_nav unordered_list">
-                  <li>
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li>Pages</li>
-                  <li>About Us</li>
-                </ul>
+                
                 <h1 className="page_title">About Dyxi</h1>
                 <p className="page_description">
                   We believe learning should feel easier — for children,
@@ -107,7 +101,7 @@ export default function About() {
                 <div className="section_heading">
                   <h2 className="heading_text">Our Approach</h2>
                   <p className="heading_description mb-0">
-                    Dyxi helps children ages 3–9 build stronger learning
+                    Dyxi helps children ages 3–12 build stronger learning
                     skills through personalised activities in our mobile
                     app. As a child plays and learns, Dyxi observes activity
                     and engagement patterns and uses them to shape what the
