@@ -39,7 +39,7 @@ export default function Home() {
                 </h2>
 
                 <p className="banner_description">
-                   helps children build stronger learning skills through
+                  Dyxi helps children build stronger learning skills through
                   personalised activities, while giving parents a clearer
                   view of their child&apos;s progress.
                 </p>
