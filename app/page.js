@@ -56,7 +56,7 @@ export default function Home() {
                   {/* GOOGLE PLAY */}
                   <li>
                     <a
-                      href="#"
+                      href="/login"
                       aria-label="Get it on Google Play"
                       style={{
                         display: "inline-block",
