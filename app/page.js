@@ -77,17 +77,19 @@ export default function Home() {
                   </li>
 
                   {/* SEE HOW IT WORKS */}
-                  <li>
-                    <Link
-                      className="btn border_dark"
-                      href="/technology"
-                    >
-                      <span>
-                        <small>See How It Works</small>
-                        <small>See How It Works</small>
-                      </span>
-                    </Link>
-                  </li>
+ <li>
+  <Link
+    className="btn btn_primary"
+    href="/technology"
+  >
+    <span>
+      <small>See How It Works</small>
+      <small>See How It Works</small>
+    </span>
+  </Link>
+ </li>
+```
+
 
                 </ul>
 
