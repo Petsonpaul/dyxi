@@ -12,11 +12,7 @@ export default function FaqPage() {
             <div className="content_wrapper" style={{backgroundImage: "url('/assets/images/banner/page_banner_image.png')"}}>
               <div className="row align-items-center">
                 <div className="col col-lg-6">
-                  <ul className="breadcrumb_nav unordered_list">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#!">Pages</a></li>
-                    <li>FAQ</li>
-                  </ul>
+                 
                   <h1 className="page_title">FAQ</h1>
                   <p className="page_description">
                     Answers to the questions parents ask most often about Dyxi and how we support children ages 3–9 with their learning.

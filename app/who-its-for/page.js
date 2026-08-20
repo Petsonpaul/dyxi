@@ -19,13 +19,6 @@ export default function WhoItsFor() {
           >
             <div className="row align-items-center">
               <div className="col col-lg-8">
-                <ul className="breadcrumb_nav unordered_list">
-                  <li>
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li>Pages</li>
-                  <li>Who It&apos;s For</li>
-                </ul>
                 <h1 className="page_title">Who Dyxi Is For</h1>
                 <p className="page_description">
                   Dyxi is built around three people: the child, the parent,

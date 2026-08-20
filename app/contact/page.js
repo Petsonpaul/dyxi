@@ -19,13 +19,6 @@ export default function Contact() {
           >
             <div className="row align-items-center">
               <div className="col col-lg-8">
-                <ul className="breadcrumb_nav unordered_list">
-                  <li>
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li>Pages</li>
-                  <li>Contact Us</li>
-                </ul>
                 <h1 className="page_title">Get in Touch</h1>
                 <p className="page_description">
                   Want to bring Dyxi to your school or practice? We&apos;d love

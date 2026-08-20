@@ -555,174 +555,244 @@ export default function Home() {
       {/* =========================================================
           PRICING
       ========================================================= */}
-      <section className="pricing_section section_space_lg">
-        <div className="container decoration_wrap">
+      {/* =========================================================
+    PRICING
+========================================================= */}
+<section className="pricing_section section_space_lg">
+  <div className="container decoration_wrap">
 
-          <div className="section_heading text-center">
+    {/* Heading */}
+    <div className="section_heading text-center">
+      <h2 className="heading_text">
+        Simple Plans for Families
+      </h2>
 
-            <h2 className="heading_text">
-              Simple Plans for Families
-            </h2>
+      <p className="heading_description mb-4">
+        Choose the monthly plan that works best for your family.
+      </p>
 
-            <p className="heading_description mb-4">
-              One simple monthly package to support your child&apos;s
-              learning journey.
-            </p>
+      {/* Currency Switcher */}
+      <div
+        className="currency_switcher"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "10px",
+          marginBottom: "45px",
+        }}
+      >
+        <button
+          type="button"
+          onClick={() => setCurrency("NGN")}
+          className={`btn ${
+            currency === "NGN" ? "btn_dark" : "border_dark"
+          }`}
+        >
+          <span>
+            <small>₦ Naira</small>
+            <small>₦ Naira</small>
+          </span>
+        </button>
 
-            {/* Currency Switcher */}
-            <div
-              className="currency_switcher"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "10px",
-                marginBottom: "40px",
-              }}
+        <button
+          type="button"
+          onClick={() => setCurrency("USD")}
+          className={`btn ${
+            currency === "USD" ? "btn_dark" : "border_dark"
+          }`}
+        >
+          <span>
+            <small>$ USD</small>
+            <small>$ USD</small>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    {/* Pricing Cards */}
+    <div className="pricing_cards_wrapper row align-items-center">
+
+      {/* =====================================================
+          STARTER
+      ===================================================== */}
+      <div className="col col-lg-6">
+        <div className="pricing_card text-center tilt">
+
+          <h3 className="card_heading">
+            Starter
+          </h3>
+
+          <div className="pricing_wrap">
+            <span className="price_value">
+              {currency === "NGN" ? "₦35,000" : "$40"}
+            </span>
+
+            <small className="d-block">
+              per month
+            </small>
+          </div>
+
+          <hr />
+
+          <ul className="info_list unordered_list_block text-start">
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                Full access to learning activities
+              </span>
+            </li>
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                Ongoing progress tracking
+              </span>
+            </li>
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                Parent dashboard access
+              </span>
+            </li>
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                1 child profile
+              </span>
+            </li>
+
+          </ul>
+
+          <div className="btn_wrap pb-0">
+            <Link
+              className="btn border_dark"
+              href="/signup"
             >
-
-              <button
-                type="button"
-                onClick={() => setCurrency("NGN")}
-                className={currency === "NGN" ? "active" : ""}
-                style={{
-                  padding: "10px 22px",
-                  border: "1px solid #222",
-                  background:
-                    currency === "NGN" ? "#222" : "transparent",
-                  color:
-                    currency === "NGN" ? "#fff" : "#222",
-                  cursor: "pointer",
-                  borderRadius: "4px",
-                  fontWeight: "600",
-                }}
-              >
-                ₦ Naira
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setCurrency("USD")}
-                className={currency === "USD" ? "active" : ""}
-                style={{
-                  padding: "10px 22px",
-                  border: "1px solid #222",
-                  background:
-                    currency === "USD" ? "#222" : "transparent",
-                  color:
-                    currency === "USD" ? "#fff" : "#222",
-                  cursor: "pointer",
-                  borderRadius: "4px",
-                  fontWeight: "600",
-                }}
-              >
-                $ USD
-              </button>
-
-            </div>
-          </div>
-
-          <div className="row justify-content-center">
-
-            {/* STARTER PLAN */}
-            <div className="col col-lg-5 col-md-8">
-              <div className="pricing_card text-center">
-
-                <h3 className="card_heading">
-                  Starter
-                </h3>
-
-                <div className="pricing_wrap">
-                  <span className="price_value">
-                    {starterPrice[currency]}
-                  </span>
-
-                  <small className="d-block">
-                    per month
-                  </small>
-                </div>
-
-                <hr />
-
-                <ul className="info_list unordered_list_block text-start">
-
-                  <li>
-                    <i className="fas fa-caret-right"></i>
-                    <span>
-                      Access to Dyxi learning activities
-                    </span>
-                  </li>
-
-                  <li>
-                    <i className="fas fa-caret-right"></i>
-                    <span>
-                      Personalised learning experience
-                    </span>
-                  </li>
-
-                  <li>
-                    <i className="fas fa-caret-right"></i>
-                    <span>
-                      Child progress tracking
-                    </span>
-                  </li>
-
-                  <li>
-                    <i className="fas fa-caret-right"></i>
-                    <span>
-                      Parent dashboard
-                    </span>
-                  </li>
-
-                  <li>
-                    <i className="fas fa-caret-right"></i>
-                    <span>
-                      One child profile
-                    </span>
-                  </li>
-
-                </ul>
-
-                <div className="btn_wrap pb-0">
-                  <Link
-                    className="btn btn_primary"
-                    href="/signup"
-                  >
-                    <span>
-                      <small>Get Started</small>
-                      <small>Get Started</small>
-                    </span>
-                  </Link>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
-
-          {/* Decorative shapes */}
-          <div
-            className="deco_item shape_img_1"
-            data-parallax='{"y" : 130, "smoothness": 6}'
-          >
-            <img
-              src="/assets/images/shape/shape_img_4.png"
-              alt=""
-            />
-          </div>
-
-          <div
-            className="deco_item shape_img_2"
-            data-parallax='{"y" : -130, "smoothness": 6}'
-          >
-            <img
-              src="/assets/images/shape/shape_img_5.png"
-              alt=""
-            />
+              <span>
+                <small>Get Started</small>
+                <small>Get Started</small>
+              </span>
+            </Link>
           </div>
 
         </div>
-      </section>
+      </div>
+
+      {/* =====================================================
+          FAMILY
+      ===================================================== */}
+      <div className="col col-lg-6">
+        <div className="pricing_card text-center bg_dark tilt">
+
+          <div className="card_badge">
+            most popular
+          </div>
+
+          <h3 className="card_heading">
+            Family
+          </h3>
+
+          <div className="pricing_wrap">
+            <span className="price_value">
+              {currency === "NGN" ? "₦60,000" : "$70"}
+            </span>
+
+            <small className="d-block">
+              per month
+            </small>
+          </div>
+
+          <hr />
+
+          <ul className="info_list unordered_list_block text-start">
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                Everything in Starter
+              </span>
+            </li>
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                Up to 3 child profiles
+              </span>
+            </li>
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                Detailed progress reports
+              </span>
+            </li>
+
+            <li>
+              <i className="fas fa-caret-right"></i>
+              <span>
+                Priority support
+              </span>
+            </li>
+
+          </ul>
+
+          <div className="btn_wrap pb-0">
+            <Link
+              className="btn btn_primary"
+              href="/signup"
+            >
+              <span>
+                <small>Get Started</small>
+                <small>Get Started</small>
+              </span>
+            </Link>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    {/* Monthly Subscription Note */}
+    <div
+      className="text-center"
+      style={{
+        marginTop: "35px",
+      }}
+    >
+      <p className="mb-0">
+        All Dyxi plans are billed monthly. You can change or
+        cancel your subscription at any time.
+      </p>
+    </div>
+
+    {/* Decorative Shapes */}
+    <div
+      className="deco_item shape_img_1"
+      data-parallax='{"y" : 130, "smoothness": 6}'
+    >
+      <img
+        src="/assets/images/shape/shape_img_4.png"
+        alt=""
+      />
+    </div>
+
+    <div
+      className="deco_item shape_img_2"
+      data-parallax='{"y" : -130, "smoothness": 6}'
+    >
+      <img
+        src="/assets/images/shape/shape_img_5.png"
+        alt=""
+      />
+    </div>
+
+  </div>
+</section>
 
       {/* =========================================================
           PRICING FAQ

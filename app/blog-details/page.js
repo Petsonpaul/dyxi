@@ -12,11 +12,7 @@ export default function BlogDetailsPage() {
             <div className="content_wrapper">
               <div className="row align-items-center">
                 <div className="col col-lg-8">
-                  <ul className="breadcrumb_nav unordered_list">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="#!">Blogs</a></li>
-                    <li>Blog Details</li>
-                  </ul>
+                  
                   <h1 className="page_title mb-0">
                     Understanding Dyslexia: What Parents Should Know
                   </h1>

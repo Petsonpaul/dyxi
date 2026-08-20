@@ -19,13 +19,6 @@ export default function Technology() {
           >
             <div className="row align-items-center">
               <div className="col col-lg-8">
-                <ul className="breadcrumb_nav unordered_list">
-                  <li>
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li>Pages</li>
-                  <li>How It Works</li>
-                </ul>
                 <h1 className="page_title">
                   How Dyxi Works
                 </h1>

@@ -34,15 +34,6 @@ export default function PricingPage() {
           >
             <div className="row align-items-center">
               <div className="col col-lg-6">
-                <ul className="breadcrumb_nav unordered_list">
-                  <li>
-                    <Link href="/">Home</Link>
-                  </li>
-                  <li>
-                    <Link href="#!">Pages</Link>
-                  </li>
-                  <li>Pricing</li>
-                </ul>
 
                 <h1 className="page_title">Pricing Plans</h1>
 

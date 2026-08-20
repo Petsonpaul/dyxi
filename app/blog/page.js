@@ -18,15 +18,7 @@ export default function BlogPage() {
           >
             <div className="row align-items-center">
               <div className="col col-lg-6">
-                <ul className="breadcrumb_nav unordered_list">
-                  <li>
-                    <a href="/">Home</a>
-                  </li>
-                  <li>
-                    <a href="#!">Blogs</a>
-                  </li>
-                  <li>Our Blogs</li>
-                </ul>
+               
 
                 <h1 className="page_title">Articles</h1>
 
