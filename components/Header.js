@@ -7,28 +7,32 @@ export default function Header() {
     <header className="site_header site_header_1">
       <div className="container">
         <div className="row align-items-center">
+
+          {/* LOGO */}
           <div className="col col-lg-3 col-5">
-  <div className="site_logo">
-    <Link
-      className="site_link"
-      href="/"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-      }}
-    >
-      <img
-        src="/assets/images/dyxi_logo.png"
-        alt="Dyxi"
-        style={{
-          width: "100px",
-          height: "auto",
-          display: "block",
-        }}
-      />
-    </Link>
-  </div>
- </div>
+            <div className="site_logo">
+              <Link
+                className="site_link"
+                href="/"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src="/assets/images/dyxi_logo.png"
+                  alt="Dyxi"
+                  style={{
+                    width: "100px",
+                    height: "auto",
+                    display: "block",
+                  }}
+                />
+              </Link>
+            </div>
+          </div>
+
+          {/* NAVIGATION */}
           <div className="col col-lg-6 col-2">
             <nav className="main_menu navbar navbar-expand-lg">
               <div
@@ -36,7 +40,9 @@ export default function Header() {
                 id="main_menu_dropdown"
               >
                 <ul className="main_menu_list unordered_list_center">
-                  <li className="active">
+
+                  {/* HOME — NO ACTIVE CLASS */}
+                  <li>
                     <Link className="nav-link" href="/">
                       Home
                     </Link>
@@ -48,6 +54,7 @@ export default function Header() {
                     </Link>
                   </li>
 
+                  {/* PRODUCT */}
                   <li className="dropdown">
                     <a
                       className="nav-link"
@@ -59,15 +66,27 @@ export default function Header() {
                     >
                       Product
                     </a>
-                    <ul className="dropdown-menu" aria-labelledby="product_submenu">
+
+                    <ul
+                      className="dropdown-menu"
+                      aria-labelledby="product_submenu"
+                    >
                       <li>
-                        <Link href="/technology">How It Works</Link>
+                        <Link href="/technology">
+                          How It Works
+                        </Link>
                       </li>
+
                       <li>
-                        <Link href="/who-its-for">Who It&apos;s For</Link>
+                        <Link href="/who-its-for">
+                          Who It&apos;s For
+                        </Link>
                       </li>
+
                       <li>
-                        <Link href="/faq">F.A.Q.</Link>
+                        <Link href="/faq">
+                          F.A.Q.
+                        </Link>
                       </li>
                     </ul>
                   </li>
@@ -89,12 +108,17 @@ export default function Header() {
                       Contact
                     </Link>
                   </li>
+
                 </ul>
               </div>
             </nav>
           </div>
+
+          {/* HEADER BUTTONS */}
           <div className="col col-lg-3 col-5">
             <ul className="header_btns_group unordered_list_end">
+
+              {/* MOBILE MENU */}
               <li>
                 <button
                   className="mobile_menu_btn"
@@ -108,24 +132,36 @@ export default function Header() {
                   <i className="far fa-bars"></i>
                 </button>
               </li>
+
+              {/* LOGIN */}
               <li>
-                <Link className="btn border_dark" href="/login">
+                <Link
+                  className="btn border_dark"
+                  href="/login"
+                >
                   <span>
                     <small>Login</small>
                     <small>Login</small>
                   </span>
                 </Link>
               </li>
+
+              {/* SIGN UP */}
               <li>
-                <Link className="btn btn_dark" href="/signup">
+                <Link
+                  className="btn btn_dark"
+                  href="/signup"
+                >
                   <span>
                     <small>Sign Up</small>
                     <small>Sign Up</small>
                   </span>
                 </Link>
               </li>
+
             </ul>
           </div>
+
         </div>
       </div>
     </header>

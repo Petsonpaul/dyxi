@@ -530,7 +530,7 @@ export default function BlogDetailsPage() {
                   </ul>
                   <div className="item_image">
                     <a href="/blog-details" data-cursor-text="View">
-                      <img src="/assets/images/blog/blog_img_1.jpg" alt="Dyxi blog"/>
+                      <img src="/assets/images/blog/learning.jpg" alt="Dyxi blog"/>
                     </a>
                   </div>
                   <div className="item_content">
@@ -556,7 +556,7 @@ export default function BlogDetailsPage() {
                   </ul>
                   <div className="item_image">
                     <a href="/blog-details" data-cursor-text="View">
-                      <img src="/assets/images/blog/blog_img_2.jpg" alt="Dyxi blog"/>
+                      <img src="/assets/images/blog/play.jpg" alt="Dyxi blog"/>
                     </a>
                   </div>
                   <div className="item_content">
@@ -582,7 +582,7 @@ export default function BlogDetailsPage() {
                   </ul>
                   <div className="item_image">
                     <a href="/blog-details" data-cursor-text="View">
-                      <img src="/assets/images/blog/blog_img_3.jpg" alt="Dyxi blog"/>
+                      <img src="/assets/images/blog/confidence.jpg" alt="Dyxi blog"/>
                     </a>
                   </div>
                   <div className="item_content">

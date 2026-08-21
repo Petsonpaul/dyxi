@@ -1,15 +1,92 @@
-
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
+
+/* =========================================================
+   SAFE REACT TILT CARD
+   Does NOT depend on tilt.min.js
+========================================================= */
+
+function TiltCard({ children, className = "" }) {
+  const cardRef = useRef(null);
+
+  const handleMouseMove = (event) => {
+    const card = cardRef.current;
+
+    if (!card) return;
+
+    const rect = card.getBoundingClientRect();
+
+    if (!rect || rect.width === 0 || rect.height === 0) {
+      return;
+    }
+
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = ((y - centerY) / centerY) * -4;
+    const rotateY = ((x - centerX) / centerX) * 4;
+
+    card.style.transform = `
+      perspective(1000px)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+      translateY(-4px)
+    `;
+  };
+
+  const handleMouseLeave = () => {
+    const card = cardRef.current;
+
+    if (!card) return;
+
+    card.style.transform = `
+      perspective(1000px)
+      rotateX(0deg)
+      rotateY(0deg)
+      translateY(0)
+    `;
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transition: "transform 0.2s ease",
+        transform:
+          "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)",
+        transformStyle: "preserve-3d",
+        willChange: "transform",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+
+/* =========================================================
+   HOME PAGE
+========================================================= */
 
 export default function Home() {
   const [currency, setCurrency] = useState("NGN");
 
   const starterPrice = {
-    NGN: "₦35,000",
-    USD: "$40",
+    NGN: "₦39,990",
+    USD: "$39.95",
+  };
+
+  const familyPrice = {
+    NGN: "₦110,999",
+    USD: "$105.95",
   };
 
   return (
@@ -17,6 +94,7 @@ export default function Home() {
       {/* =========================================================
           HERO
       ========================================================= */}
+
       <section
         className="hero_banner style_1"
         style={{
@@ -44,7 +122,6 @@ export default function Home() {
                   view of their child&apos;s progress.
                 </p>
 
-                {/* HERO BUTTONS */}
                 <ul
                   className="banner_btns_group unordered_list"
                   style={{
@@ -56,8 +133,9 @@ export default function Home() {
                   {/* GOOGLE PLAY */}
                   <li>
                     <a
-                      href="/login"
-                      aria-label="Get it on Google Play"
+                      href="#"
+                      aria-label="Get Dyxi on Google Play"
+                      onClick={(event) => event.preventDefault()}
                       style={{
                         display: "inline-block",
                         lineHeight: 0,
@@ -76,27 +154,27 @@ export default function Home() {
                     </a>
                   </li>
 
-                  {/* SEE HOW IT WORKS */}
- <li>
-  <Link
-    className="btn btn_primary"
-    href="/technology"
-  >
-    <span>
-      <small>See How It Works</small>
-      <small>See How It Works</small>
-    </span>
-  </Link>
- </li>
-```
-
+                  {/* HOW IT WORKS */}
+                  <li>
+                    <Link
+                      className="btn btn_primary"
+                      href="/technology"
+                    >
+                      <span>
+                        <small>See How It Works</small>
+                        <small>See How It Works</small>
+                      </span>
+                    </Link>
+                  </li>
 
                 </ul>
 
               </div>
 
+
               {/* HERO IMAGE */}
               <div className="col col-lg-5">
+
                 <div
                   className="banner_image_1 decoration_wrap"
                   style={{
@@ -116,6 +194,7 @@ export default function Home() {
                         "0 25px 60px rgba(0,0,0,0.12)",
                     }}
                   >
+
                     <img
                       src="/assets/images/about/herosec.jpg"
                       alt="Children learning with Dyxi"
@@ -126,16 +205,17 @@ export default function Home() {
                         display: "block",
                       }}
                     />
+
                   </div>
 
-                  {/* Decorative shapes */}
+                  {/* Decorative shape */}
                   <div
                     className="deco_item shape_img_1"
-                    data-parallax='{"y" : -130, "smoothness": 6}'
-                  >
-                  </div>
+                    aria-hidden="true"
+                  />
 
                 </div>
+
               </div>
 
             </div>
@@ -147,10 +227,14 @@ export default function Home() {
       {/* =========================================================
           WHAT IS DYXI
       ========================================================= */}
+
       <section className="expect_from_course section_space_lg">
+
         <div className="container">
+
           <div className="row">
 
+            {/* LEFT */}
             <div className="col col-lg-6">
 
               <div className="section_heading">
@@ -171,31 +255,34 @@ export default function Home() {
               </div>
 
               <div className="image_widget">
+
                 <img
                   src="/assets/images/about/aboutdyxi.jpg"
                   alt="Dyxi learning platform"
                 />
+
               </div>
 
             </div>
 
 
+            {/* RIGHT */}
             <div className="col col-lg-6">
 
               <div className="row">
 
                 {/* AGES */}
                 <div className="col col-md-6">
-                  <div
-                    className="service_item"
-                    data-magnetic
-                  >
+
+                  <TiltCard className="service_item">
 
                     <div className="item_icon">
+
                       <img
                         src="/assets/images/service/icon_academic_cap.svg"
                         alt="Learning"
                       />
+
                     </div>
 
                     <div className="item_content">
@@ -211,22 +298,23 @@ export default function Home() {
 
                     </div>
 
-                  </div>
+                  </TiltCard>
+
                 </div>
 
 
                 {/* LEARNING THROUGH PLAY */}
                 <div className="col col-md-6">
-                  <div
-                    className="service_item"
-                    data-magnetic
-                  >
+
+                  <TiltCard className="service_item">
 
                     <div className="item_icon">
+
                       <img
                         src="/assets/images/service/icon_physics.svg"
                         alt="Learning through play"
                       />
+
                     </div>
 
                     <div className="item_content">
@@ -243,22 +331,23 @@ export default function Home() {
 
                     </div>
 
-                  </div>
+                  </TiltCard>
+
                 </div>
 
 
                 {/* PERSONALISED */}
                 <div className="col col-md-6">
-                  <div
-                    className="service_item"
-                    data-magnetic
-                  >
+
+                  <TiltCard className="service_item">
 
                     <div className="item_icon">
+
                       <img
                         src="/assets/images/service/icon_communication.svg"
                         alt="Personalised learning"
                       />
+
                     </div>
 
                     <div className="item_content">
@@ -274,22 +363,23 @@ export default function Home() {
 
                     </div>
 
-                  </div>
+                  </TiltCard>
+
                 </div>
 
 
                 {/* PROGRESS */}
                 <div className="col col-md-6">
-                  <div
-                    className="service_item"
-                    data-magnetic
-                  >
+
+                  <TiltCard className="service_item">
 
                     <div className="item_icon">
+
                       <img
                         src="/assets/images/service/icon_diploma.svg"
                         alt="Progress tracking"
                       />
+
                     </div>
 
                     <div className="item_content">
@@ -305,7 +395,8 @@ export default function Home() {
 
                     </div>
 
-                  </div>
+                  </TiltCard>
+
                 </div>
 
               </div>
@@ -313,13 +404,16 @@ export default function Home() {
             </div>
 
           </div>
+
         </div>
+
       </section>
 
 
       {/* =========================================================
-          HOW DYXI WORKS + VIDEO
+          HOW DYXI WORKS
       ========================================================= */}
+
       <section
         className="advertisement_section"
         style={{
@@ -334,7 +428,7 @@ export default function Home() {
 
           <div className="row align-items-center">
 
-            {/* VIDEO TEXT */}
+            {/* TEXT */}
             <div className="col col-lg-5">
 
               <div className="section_heading mb-lg-0">
@@ -445,7 +539,7 @@ export default function Home() {
                     }}
                   />
 
-                  {/* Dark overlay */}
+                  {/* OVERLAY */}
                   <div
                     style={{
                       position: "absolute",
@@ -455,10 +549,12 @@ export default function Home() {
                     }}
                   />
 
-                  {/* Play button */}
+                  {/* PLAY BUTTON */}
                   <a
-                    className="video_play_btn popup_video"
+                    className="video_play_btn"
                     href="https://www.youtube.com/watch?v=7e90gBu4pas"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label="Play How Dyxi Works video"
                     style={{
                       position: "absolute",
@@ -496,7 +592,7 @@ export default function Home() {
                           fontSize: "22px",
                           marginLeft: "4px",
                         }}
-                      ></i>
+                      />
 
                     </span>
 
@@ -518,6 +614,7 @@ export default function Home() {
       {/* =========================================================
           WHO DYXI IS FOR
       ========================================================= */}
+
       <section className="courses_info_section section_space_lg">
 
         <div className="container">
@@ -541,10 +638,7 @@ export default function Home() {
             {/* PARENTS */}
             <div className="col col-md-4">
 
-              <div
-                className="service_item"
-                data-magnetic
-              >
+              <TiltCard className="service_item">
 
                 <div className="item_icon">
 
@@ -569,7 +663,7 @@ export default function Home() {
 
                 </div>
 
-              </div>
+              </TiltCard>
 
             </div>
 
@@ -577,10 +671,7 @@ export default function Home() {
             {/* CHILDREN */}
             <div className="col col-md-4">
 
-              <div
-                className="service_item"
-                data-magnetic
-              >
+              <TiltCard className="service_item">
 
                 <div className="item_icon">
 
@@ -604,18 +695,15 @@ export default function Home() {
 
                 </div>
 
-              </div>
+              </TiltCard>
 
             </div>
 
 
-            {/* EDUCATION CONSULTANTS */}
+            {/* CONSULTANTS */}
             <div className="col col-md-4">
 
-              <div
-                className="service_item"
-                data-magnetic
-              >
+              <TiltCard className="service_item">
 
                 <div className="item_icon">
 
@@ -639,7 +727,7 @@ export default function Home() {
 
                 </div>
 
-              </div>
+              </TiltCard>
 
             </div>
 
@@ -653,11 +741,12 @@ export default function Home() {
       {/* =========================================================
           PRICING
       ========================================================= */}
+
       <section className="pricing_section section_space_lg">
 
         <div className="container decoration_wrap">
 
-          {/* Heading */}
+          {/* HEADING */}
           <div className="section_heading text-center">
 
             <h2 className="heading_text">
@@ -669,7 +758,7 @@ export default function Home() {
             </p>
 
 
-            {/* Currency Switcher */}
+            {/* CURRENCY SWITCHER */}
             <div
               className="currency_switcher"
               style={{
@@ -690,10 +779,12 @@ export default function Home() {
                     : "border_dark"
                 }`}
               >
+
                 <span>
                   <small>₦ Naira</small>
                   <small>₦ Naira</small>
                 </span>
+
               </button>
 
 
@@ -706,10 +797,12 @@ export default function Home() {
                     : "border_dark"
                 }`}
               >
+
                 <span>
                   <small>$ USD</small>
                   <small>$ USD</small>
                 </span>
+
               </button>
 
             </div>
@@ -717,13 +810,13 @@ export default function Home() {
           </div>
 
 
-          {/* Pricing Cards */}
+          {/* PRICING CARDS */}
           <div className="pricing_cards_wrapper row align-items-center">
 
             {/* STARTER */}
             <div className="col col-lg-6">
 
-              <div className="pricing_card text-center tilt">
+              <TiltCard className="pricing_card text-center">
 
                 <h3 className="card_heading">
                   Starter
@@ -733,8 +826,8 @@ export default function Home() {
 
                   <span className="price_value">
                     {currency === "NGN"
-                      ? "₦35,000"
-                      : "$40"}
+                      ? starterPrice.NGN
+                      : starterPrice.USD}
                   </span>
 
                   <small className="d-block">
@@ -748,28 +841,28 @@ export default function Home() {
                 <ul className="info_list unordered_list_block text-start">
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       Full access to learning activities
                     </span>
                   </li>
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       Ongoing progress tracking
                     </span>
                   </li>
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       Parent dashboard access
                     </span>
                   </li>
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       1 child profile
                     </span>
@@ -792,7 +885,7 @@ export default function Home() {
 
                 </div>
 
-              </div>
+              </TiltCard>
 
             </div>
 
@@ -800,9 +893,7 @@ export default function Home() {
             {/* FAMILY */}
             <div className="col col-lg-6">
 
-              <div
-                className="pricing_card text-center bg_dark tilt"
-              >
+              <TiltCard className="pricing_card text-center bg_dark">
 
                 <div className="card_badge">
                   most popular
@@ -816,8 +907,8 @@ export default function Home() {
 
                   <span className="price_value">
                     {currency === "NGN"
-                      ? "₦60,000"
-                      : "$70"}
+                      ? familyPrice.NGN
+                      : familyPrice.USD}
                   </span>
 
                   <small className="d-block">
@@ -831,28 +922,28 @@ export default function Home() {
                 <ul className="info_list unordered_list_block text-start">
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       Everything in Starter
                     </span>
                   </li>
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       Up to 3 child profiles
                     </span>
                   </li>
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       Detailed progress reports
                     </span>
                   </li>
 
                   <li>
-                    <i className="fas fa-caret-right"></i>
+                    <i className="fas fa-caret-right" />
                     <span>
                       Priority support
                     </span>
@@ -875,14 +966,14 @@ export default function Home() {
 
                 </div>
 
-              </div>
+              </TiltCard>
 
             </div>
 
           </div>
 
 
-          {/* Monthly Subscription Note */}
+          {/* NOTE */}
           <div
             className="text-center"
             style={{
@@ -898,7 +989,7 @@ export default function Home() {
           </div>
 
 
-          {/* Decorative Shapes */}
+          {/* DECORATIVE SHAPE 1 */}
           <div
             className="deco_item shape_img_1"
             data-parallax='{"y" : 130, "smoothness": 6}'
@@ -912,6 +1003,7 @@ export default function Home() {
           </div>
 
 
+          {/* DECORATIVE SHAPE 2 */}
           <div
             className="deco_item shape_img_2"
             data-parallax='{"y" : -130, "smoothness": 6}'
@@ -930,8 +1022,9 @@ export default function Home() {
 
 
       {/* =========================================================
-          PRICING FAQ
+          FAQ
       ========================================================= */}
+
       <section className="faq_section section_space_lg">
 
         <div className="container">
@@ -968,6 +1061,7 @@ export default function Home() {
                 id="home_faq_accordion_1"
               >
 
+                {/* FAQ 1 */}
                 <div className="accordion-item">
 
                   <div
@@ -1001,6 +1095,7 @@ export default function Home() {
                 </div>
 
 
+                {/* FAQ 2 */}
                 <div className="accordion-item">
 
                   <div
@@ -1022,11 +1117,23 @@ export default function Home() {
                     <div className="accordion-body">
 
                       <p className="mb-0">
+
                         The Starter monthly package is{" "}
+
                         {currency === "NGN"
-                          ? "₦35,000"
-                          : "$40"}{" "}
-                        per month.
+                          ? starterPrice.NGN
+                          : starterPrice.USD}
+
+                        {" "}per month.
+
+                        The Family package is{" "}
+
+                        {currency === "NGN"
+                          ? familyPrice.NGN
+                          : familyPrice.USD}
+
+                        {" "}per month.
+
                       </p>
 
                     </div>
@@ -1036,6 +1143,7 @@ export default function Home() {
                 </div>
 
 
+                {/* FAQ 3 */}
                 <div className="accordion-item">
 
                   <div
@@ -1057,8 +1165,9 @@ export default function Home() {
                     <div className="accordion-body">
 
                       <p className="mb-0">
-                        Yes. Use the Naira or USD buttons in the pricing
-                        section to switch between ₦35,000 and $40.
+                        Yes. Use the Naira or USD buttons in the
+                        pricing section to switch between the
+                        available prices.
                       </p>
 
                     </div>
@@ -1080,6 +1189,7 @@ export default function Home() {
                 id="home_faq_accordion_2"
               >
 
+                {/* FAQ 4 */}
                 <div className="accordion-item">
 
                   <div
@@ -1101,8 +1211,8 @@ export default function Home() {
                     <div className="accordion-body">
 
                       <p className="mb-0">
-                        Yes. The Starter package is a monthly
-                        subscription.
+                        Yes. Both the Starter and Family packages
+                        are monthly subscriptions.
                       </p>
 
                     </div>
@@ -1112,6 +1222,7 @@ export default function Home() {
                 </div>
 
 
+                {/* FAQ 5 */}
                 <div className="accordion-item">
 
                   <div
@@ -1144,6 +1255,7 @@ export default function Home() {
                 </div>
 
 
+                {/* FAQ 6 */}
                 <div className="accordion-item">
 
                   <div
@@ -1189,6 +1301,7 @@ export default function Home() {
       {/* =========================================================
           FINAL CTA
       ========================================================= */}
+
       <section className="newslatter_section">
 
         <div className="container">
@@ -1219,7 +1332,10 @@ export default function Home() {
                 </div>
 
 
-                <form action="#">
+                <form
+                  action="#"
+                  onSubmit={(event) => event.preventDefault()}
+                >
 
                   <div className="form_item m-0">
 
@@ -1227,6 +1343,7 @@ export default function Home() {
                       type="email"
                       name="email"
                       placeholder="Your Email"
+                      required
                     />
 
                     <button
@@ -1254,8 +1371,6 @@ export default function Home() {
         </div>
 
       </section>
-
     </>
   );
 }
-

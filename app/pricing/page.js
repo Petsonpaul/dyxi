@@ -1,8 +1,112 @@
-
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+/* =========================================================
+   REACT TILT CARD
+   - No tilt.min.js
+   - No jQuery
+   - No TypeScript
+   - Works safely in Next.js
+========================================================= */
+
+function TiltCard({ children, className = "" }) {
+  const cardRef = useRef(null);
+  const frameRef = useRef(null);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    const checkDevice = () => {
+      setIsTouchDevice(
+        window.matchMedia("(hover: none), (pointer: coarse)").matches
+      );
+    };
+
+    checkDevice();
+
+    window.addEventListener("resize", checkDevice);
+
+    return () => {
+      window.removeEventListener("resize", checkDevice);
+
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, []);
+
+  const handleMouseMove = (event) => {
+    if (isTouchDevice) return;
+
+    const card = cardRef.current;
+
+    if (!card) return;
+
+    if (frameRef.current) {
+      cancelAnimationFrame(frameRef.current);
+    }
+
+    frameRef.current = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect();
+
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateY = ((x - centerX) / centerX) * 7;
+      const rotateX = ((centerY - y) / centerY) * 7;
+
+      card.style.transform = `
+        perspective(1000px)
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        translateZ(8px)
+      `;
+    });
+  };
+
+  const handleMouseLeave = () => {
+    if (frameRef.current) {
+      cancelAnimationFrame(frameRef.current);
+    }
+
+    const card = cardRef.current;
+
+    if (!card) return;
+
+    card.style.transform = `
+      perspective(1000px)
+      rotateX(0deg)
+      rotateY(0deg)
+      translateZ(0)
+    `;
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      className={className}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform:
+          "perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)",
+        transformStyle: "preserve-3d",
+        transition: "transform 180ms ease-out",
+        willChange: "transform",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* =========================================================
+   PRICING PAGE
+========================================================= */
 
 export default function PricingPage() {
   const [currency, setCurrency] = useState("NGN");
@@ -23,6 +127,7 @@ export default function PricingPage() {
       {/* =========================================================
           PAGE BANNER
       ========================================================= */}
+
       <section className="page_banner">
         <div className="container">
           <div
@@ -34,7 +139,6 @@ export default function PricingPage() {
           >
             <div className="row align-items-center">
               <div className="col col-lg-6">
-
                 <h1 className="page_title">Pricing Plans</h1>
 
                 <p className="page_description">
@@ -51,10 +155,12 @@ export default function PricingPage() {
       {/* =========================================================
           PRICING
       ========================================================= */}
+
       <section className="pricing_section section_space_lg pb-0">
         <div className="container decoration_wrap">
 
-          {/* Heading */}
+          {/* HEADING */}
+
           <div className="section_heading text-center">
             <h2 className="heading_text mb-3">
               Premium Price Packages
@@ -64,7 +170,8 @@ export default function PricingPage() {
               Choose the monthly plan that works best for your family.
             </p>
 
-            {/* Currency Switcher */}
+            {/* CURRENCY SWITCHER */}
+
             <div
               className="currency_switcher"
               style={{
@@ -79,9 +186,7 @@ export default function PricingPage() {
                 type="button"
                 onClick={() => setCurrency("NGN")}
                 className={`btn ${
-                  currency === "NGN"
-                    ? "btn_dark"
-                    : "border_dark"
+                  currency === "NGN" ? "btn_dark" : "border_dark"
                 }`}
               >
                 <span>
@@ -94,9 +199,7 @@ export default function PricingPage() {
                 type="button"
                 onClick={() => setCurrency("USD")}
                 className={`btn ${
-                  currency === "USD"
-                    ? "btn_dark"
-                    : "border_dark"
+                  currency === "USD" ? "btn_dark" : "border_dark"
                 }`}
               >
                 <span>
@@ -107,14 +210,18 @@ export default function PricingPage() {
             </div>
           </div>
 
-          {/* Pricing Cards */}
+          {/* =====================================================
+              PRICING CARDS
+          ===================================================== */}
+
           <div className="pricing_cards_wrapper row align-items-center">
 
-            {/* =====================================================
+            {/* ===================================================
                 STARTER
-            ===================================================== */}
+            =================================================== */}
+
             <div className="col col-lg-6">
-              <div className="pricing_card text-center tilt">
+              <TiltCard className="pricing_card text-center">
 
                 <h3 className="card_heading">
                   Starter
@@ -133,8 +240,10 @@ export default function PricingPage() {
                 <hr />
 
                 <ul className="info_list unordered_list_block text-start">
+
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       Full access to learning activities
                     </span>
@@ -142,6 +251,7 @@ export default function PricingPage() {
 
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       Ongoing progress tracking
                     </span>
@@ -149,6 +259,7 @@ export default function PricingPage() {
 
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       Parent dashboard access
                     </span>
@@ -156,10 +267,12 @@ export default function PricingPage() {
 
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       1 child profile
                     </span>
                   </li>
+
                 </ul>
 
                 <div className="btn_wrap pb-0">
@@ -173,14 +286,16 @@ export default function PricingPage() {
                     </span>
                   </Link>
                 </div>
-              </div>
+
+              </TiltCard>
             </div>
 
-            {/* =====================================================
+            {/* ===================================================
                 FAMILY
-            ===================================================== */}
+            =================================================== */}
+
             <div className="col col-lg-6">
-              <div className="pricing_card text-center bg_dark tilt">
+              <TiltCard className="pricing_card text-center bg_dark">
 
                 <div className="card_badge">
                   most popular
@@ -203,8 +318,10 @@ export default function PricingPage() {
                 <hr />
 
                 <ul className="info_list unordered_list_block text-start">
+
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       Everything in Starter
                     </span>
@@ -212,6 +329,7 @@ export default function PricingPage() {
 
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       Up to 3 child profiles
                     </span>
@@ -219,6 +337,7 @@ export default function PricingPage() {
 
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       Detailed progress reports
                     </span>
@@ -226,10 +345,12 @@ export default function PricingPage() {
 
                   <li>
                     <i className="fas fa-caret-right"></i>
+
                     <span>
                       Priority support
                     </span>
                   </li>
+
                 </ul>
 
                 <div className="btn_wrap pb-0">
@@ -243,11 +364,16 @@ export default function PricingPage() {
                     </span>
                   </Link>
                 </div>
-              </div>
+
+              </TiltCard>
             </div>
+
           </div>
 
-          {/* Monthly subscription note */}
+          {/* =====================================================
+              MONTHLY NOTE
+          ===================================================== */}
+
           <div
             className="text-center"
             style={{
@@ -260,7 +386,10 @@ export default function PricingPage() {
             </p>
           </div>
 
-          {/* Decorative Shapes */}
+          {/* =====================================================
+              DECORATIVE SHAPES
+          ===================================================== */}
+
           <div
             className="deco_item shape_img_1"
             data-parallax='{"y" : 130, "smoothness": 6}'
@@ -280,18 +409,23 @@ export default function PricingPage() {
               alt="Dyxi decorative shape"
             />
           </div>
+
         </div>
       </section>
 
       {/* =========================================================
           FAQ
       ========================================================= */}
+
       <section className="faq_section section_space_lg">
         <div className="container">
 
           <div className="section_heading text-center mb-3">
+
             <div className="row justify-content-center">
+
               <div className="col col-lg-7">
+
                 <h2 className="heading_text">
                   Questions Before You Subscribe
                 </h2>
@@ -300,20 +434,28 @@ export default function PricingPage() {
                   Everything you need to know about Dyxi pricing
                   and subscriptions.
                 </p>
+
               </div>
+
             </div>
+
           </div>
 
           <div className="row justify-content-center">
 
-            {/* Left FAQ */}
+            {/* LEFT FAQ */}
+
             <div className="col col-lg-6">
+
               <div
                 className="accordion"
                 id="faq_accordion_1"
               >
 
+                {/* FAQ 1 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button"
                     role="button"
@@ -329,17 +471,25 @@ export default function PricingPage() {
                     className="accordion-collapse collapse show"
                     data-bs-parent="#faq_accordion_1"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         Every Dyxi plan includes access to learning
                         activities for your child and a parent dashboard
                         for following progress over time.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
+                {/* FAQ 2 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button collapsed"
                     role="button"
@@ -355,17 +505,25 @@ export default function PricingPage() {
                     className="accordion-collapse collapse"
                     data-bs-parent="#faq_accordion_1"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         The Starter plan is ₦35,000 per month when
                         paying in Naira, or $40 per month when paying
                         in US Dollars.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
+                {/* FAQ 3 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button collapsed"
                     role="button"
@@ -381,16 +539,24 @@ export default function PricingPage() {
                     className="accordion-collapse collapse"
                     data-bs-parent="#faq_accordion_1"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         Yes. The Family plan supports up to three
                         child profiles under one account.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
+                {/* FAQ 4 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button collapsed"
                     role="button"
@@ -406,26 +572,37 @@ export default function PricingPage() {
                     className="accordion-collapse collapse"
                     data-bs-parent="#faq_accordion_1"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         Yes. Dyxi is a monthly subscription service.
                         There is no annual plan displayed at this time.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
               </div>
+
             </div>
 
-            {/* Right FAQ */}
+            {/* RIGHT FAQ */}
+
             <div className="col col-lg-6">
+
               <div
                 className="accordion"
                 id="faq_accordion_2"
               >
 
+                {/* FAQ 5 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button"
                     role="button"
@@ -441,16 +618,24 @@ export default function PricingPage() {
                     className="accordion-collapse collapse show"
                     data-bs-parent="#faq_accordion_2"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         Yes. You can move between available plans
                         as your family&apos;s needs change.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
+                {/* FAQ 6 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button collapsed"
                     role="button"
@@ -466,16 +651,24 @@ export default function PricingPage() {
                     className="accordion-collapse collapse"
                     data-bs-parent="#faq_accordion_2"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         Yes. Use the currency switcher above to view
                         the available pricing in Naira or US Dollars.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
+                {/* FAQ 7 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button collapsed"
                     role="button"
@@ -491,16 +684,24 @@ export default function PricingPage() {
                     className="accordion-collapse collapse"
                     data-bs-parent="#faq_accordion_2"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         Visit our Contact page if you have questions
                         about plans, billing, or the Dyxi platform.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
+                {/* FAQ 8 */}
+
                 <div className="accordion-item">
+
                   <div
                     className="accordion-button collapsed"
                     role="button"
@@ -516,26 +717,37 @@ export default function PricingPage() {
                     className="accordion-collapse collapse"
                     data-bs-parent="#faq_accordion_2"
                   >
+
                     <div className="accordion-body">
+
                       <p className="mb-0">
                         Yes. Dyxi is a monthly subscription, so you
                         can cancel whenever you choose.
                       </p>
+
                     </div>
+
                   </div>
+
                 </div>
 
               </div>
+
             </div>
+
           </div>
+
         </div>
       </section>
 
       {/* =========================================================
           FINAL CTA
       ========================================================= */}
+
       <section className="newslatter_section">
+
         <div className="container">
+
           <div
             className="newslatter_box"
             style={{
@@ -543,10 +755,13 @@ export default function PricingPage() {
                 "url('/assets/images/shape/shape_img_6.svg')",
             }}
           >
+
             <div className="row justify-content-center">
+
               <div className="col col-lg-6">
 
                 <div className="section_heading text-center">
+
                   <h2 className="heading_text">
                     Ready to Get Started With Dyxi?
                   </h2>
@@ -555,6 +770,7 @@ export default function PricingPage() {
                     Choose your plan and start giving your child
                     personalised learning support.
                   </p>
+
                 </div>
 
                 <div
@@ -563,6 +779,7 @@ export default function PricingPage() {
                     display: "flex",
                   }}
                 >
+
                   <Link
                     className="btn btn_dark"
                     href="/signup"
@@ -572,12 +789,17 @@ export default function PricingPage() {
                       <small>Get Started</small>
                     </span>
                   </Link>
+
                 </div>
 
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
     </>
   );
